@@ -34,3 +34,19 @@ To test changes to the chart locally, run the following command from the directo
 ```bash
 helm install feathr-online ./feathr-online -f ./feathr-online/values.yaml
 ```
+
+## AKS Connection
+
+**Instructions**
+
+1. Open Cloud Shell or the Azure CLI
+1. Run the following commands
+```bash
+az account set --subscription <SUBSCRIPTION ID>
+```
+1. Get the credentials
+```bash
+az aks get-credentials --resource-group <RESOURCE GROUP> --name <AKS CLUSTER NAME>
+```
+
+Once the correct credentials have been set correctly, please follow the instructions above.
