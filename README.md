@@ -32,5 +32,5 @@ helm delete feathr-online
 To test changes to the chart locally, run the following command from the directory /charts
 
 ```bash
-helm install feathr-online ./feathr-online -f ./feathr-online/values.yaml
+helm install feathr-online ./charts/feathr-online -f ./charts/feathr-online/values.yaml
 ```
