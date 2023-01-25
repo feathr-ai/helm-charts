@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  FEATHRCI_HOST: "Test"
+  FEATHRCI_PASS: "Test"
+  FEATHRCI_TABLE: "Test"
+  IPGEOLOCATION_APIKEY: "Test"
+  CONN_STR: "Test"
+  COSMOS_ACCOUNT: "Test"
+  COSMOS_API_KEY: "Test"
+  COSMOS_DATABASE: "Test"

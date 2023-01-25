@@ -4,6 +4,22 @@
 
 A Helm chart for Feathr Online Server
 
+## Installation of ConfigMap with Helm charts
+
+1. Install the ConfigMap with helm.
+
+```sh
+helm install <Release Name> ./feathr-online
+```
+
+1. Check if the ConfigMap is present.
+```sh
+helm get manifest <Release Name>
+```
+
+1. If you see the ConfigMap manifest, the installation is complete. For uninstallation,
+run `helm uninstall <Release Name>`
+
 ## Values
 
 | Key | Type | Default | Description |
