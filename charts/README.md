@@ -6,10 +6,17 @@ A Helm chart for Feathr Online Server
 
 ## Installation of ConfigMap with Helm charts
 
-1. Install the ConfigMap with helm.
+1. Install the ConfigMap with helm or use `--values` to pass values from files.
+Use `--dry-run` to validate installation.
 
 ```sh
+# If set environment variables from values.yaml or --values to pass values from one or more files
 helm install <Release Name> ./feathr-online
+
+or
+
+# If set environment variables from cli
+helm install <Release Name> ./feathr-online --set feathrCiHost="<Variables>"
 ```
 
 1. Check if the ConfigMap is present.
