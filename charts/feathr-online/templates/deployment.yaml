@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "feathr-online.fullname" . }}
+  namespace: default
   labels:
     {{- include "feathr-online.labels" . | nindent 4 }}
 spec:
@@ -44,6 +45,14 @@ spec:
               port: 8000
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            # Define the environment variable
+            - name: FEATHRCI_HOST    # Notice that the case is different here
+                                         # from the key name in the ConfigMap.
+              valueFrom:
+                configMapKeyRef:
+                  name: feathr-config       # The ConfigMap this value comes from.
+                  key: FEATHRCI_HOST        # The key to fetch.
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
