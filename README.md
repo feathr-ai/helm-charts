@@ -29,10 +29,10 @@ helm delete feathr-online
 
 ## Local Development
 
-To test changes to the chart locally, run the following command from the directory /charts
+To test changes to the chart locally, run the following command from helm-charts
 
 ```bash
-helm install feathr-online ./feathr-online -f ./feathr-online/values.yaml
+helm install feathr-online ./charts/feathr-online -f ./charts/feathr-online/values.yaml
 ```
 
 ## AKS Connection
