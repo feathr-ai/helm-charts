@@ -47,12 +47,25 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             # Define the environment variable
-            - name: FEATHRCI_HOST    # Notice that the case is different here
-                                         # from the key name in the ConfigMap.
+            - name: FEATHRCI_HOST    # Notice that the case is different here from the key name in the ConfigMap.
               valueFrom:
                 configMapKeyRef:
                   name: feathr-config       # The ConfigMap this value comes from.
                   key: FEATHRCI_HOST        # The key to fetch.
+          volumeMounts:
+          - name: config
+            mountPath: "/config"
+            readOnly: true
+      volumes:
+      # You set volumes at the Pod level, then mount them into containers inside that Pod     
+      - name: config
+        configMap:
+          # Provide the name of the ConfigMap you want to mount.
+          name: feathr-config
+          # An array of keys from the ConfigMap to create as files
+          items:
+          - key: "feathr.properties"
+            path: "feathr.properties"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

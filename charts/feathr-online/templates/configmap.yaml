@@ -12,3 +12,14 @@ data:
   COSMOS_ACCOUNT: {{ .Values.cosmosAccount }}
   COSMOS_API_KEY: {{ .Values.cosmosApiKey }}
   COSMOS_DATABASE: {{ .Values.cosmosDatabase }}
+
+  # file-like keys
+  feathr.properties: |
+    FEATHRCI_HOST={{ .Values.feathrCiHost }}
+    FEATHRCI_PASS={{ .Values.feathrCiPass }}
+    FEATHRCI_TABLE={{ .Values.feathrCiTable }}
+    IPGEOLOCATION_APIKEY={{ .Values.ipGeolocationApiKey }}
+    CONN_STR={{ .Values.connStr }}
+    COSMOS_ACCOUNT={{ .Values.cosmosAccount }}
+    COSMOS_API_KEY={{ .Values.cosmosApiKey }}
+    COSMOS_DATABASE={{ .Values.cosmosDatabase }}
