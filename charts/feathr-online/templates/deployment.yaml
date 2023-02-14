@@ -47,7 +47,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - name: config
-            mountPath: "/config"
+            mountPath: "/conf"
             readOnly: true
       volumes:
       # You set volumes at the Pod level, then mount them into containers inside that Pod     
@@ -57,8 +57,8 @@ spec:
           name: feathr-online-config
           # An array of keys from the ConfigMap to create as files
           items:
-          - key: "feathr-online.conf"
-            path: "feathr-online.conf"
+          - key: "pipeline.conf"
+            path: "pipeline.conf"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

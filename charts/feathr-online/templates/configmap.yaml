@@ -5,7 +5,7 @@ metadata:
   namespace: default
 data:
   # Configuration variables of feathr-online.conf
-  feathr-online.conf: |
+  pipeline.conf: |
     FEATHRCI_HOST={{ .Values.feathrCiHost }}
     FEATHRCI_PASS={{ .Values.feathrCiPass }}
     FEATHRCI_TABLE={{ .Values.feathrCiTable }}
