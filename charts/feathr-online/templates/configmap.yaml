@@ -4,6 +4,7 @@ metadata:
   name: feathr-config
   namespace: default
 data:
+  # Enviroment variables of feathr-online.conf
   FEATHRCI_HOST: {{ .Values.feathrCiHost }}
   FEATHRCI_PASS: {{ .Values.feathrCiPass }}
   FEATHRCI_TABLE: {{ .Values.feathrCiTable }}
@@ -13,8 +14,8 @@ data:
   COSMOS_API_KEY: {{ .Values.cosmosApiKey }}
   COSMOS_DATABASE: {{ .Values.cosmosDatabase }}
 
-  # file-like keys
-  feathr.properties: |
+  # Configuration variables of feathr-online.conf
+  feathr-online.conf: |
     FEATHRCI_HOST={{ .Values.feathrCiHost }}
     FEATHRCI_PASS={{ .Values.feathrCiPass }}
     FEATHRCI_TABLE={{ .Values.feathrCiTable }}

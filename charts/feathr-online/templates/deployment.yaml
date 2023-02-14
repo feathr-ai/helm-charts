@@ -54,7 +54,7 @@ spec:
                   key: FEATHRCI_HOST        # The key to fetch.
           volumeMounts:
           - name: config
-            mountPath: "/config"
+            mountPath: "/conf"
             readOnly: true
       volumes:
       # You set volumes at the Pod level, then mount them into containers inside that Pod     
@@ -64,8 +64,8 @@ spec:
           name: feathr-config
           # An array of keys from the ConfigMap to create as files
           items:
-          - key: "feathr.properties"
-            path: "feathr.properties"
+          - key: "feathr-online.conf"
+            path: "feathr-online.conf"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
