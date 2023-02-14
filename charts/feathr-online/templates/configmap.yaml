@@ -1,19 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: feathr-config
+  name: feathr-online-config
   namespace: default
 data:
-  # Enviroment variables of feathr-online.conf
-  FEATHRCI_HOST: {{ .Values.feathrCiHost }}
-  FEATHRCI_PASS: {{ .Values.feathrCiPass }}
-  FEATHRCI_TABLE: {{ .Values.feathrCiTable }}
-  IPGEOLOCATION_APIKEY: {{ .Values.ipGeolocationApiKey }}
-  CONN_STR: {{ .Values.connStr }}
-  COSMOS_ACCOUNT: {{ .Values.cosmosAccount }}
-  COSMOS_API_KEY: {{ .Values.cosmosApiKey }}
-  COSMOS_DATABASE: {{ .Values.cosmosDatabase }}
-
   # Configuration variables of feathr-online.conf
   feathr-online.conf: |
     FEATHRCI_HOST={{ .Values.feathrCiHost }}
