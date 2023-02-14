@@ -1,8 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-deployment
+  name: {{ include "feathr-online.fullname" . }}-redis
   labels:
+    {{- include "feathr-online.labels" . | nindent 4 }}
     app: redis
 spec:
   replicas: 1
