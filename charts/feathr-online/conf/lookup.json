@@ -1,0 +1,105 @@
+{
+    "sources": [
+      {
+        "class": "FeathrRedisSource",
+        "name": "feathrci",
+        "host": "${FEATHRCI_HOST}",
+        "password": "${FEATHRCI_PASS}",
+        "ssl": true,
+        "table": "${FEATHRCI_TABLE}"
+      },
+      {
+        "class": "HttpJsonApiSource",
+        "name": "geoip",
+        "urlBase": "http://ip-api.com",
+        "keyUrlTemplate": "/json/$",
+        "resultPath": {
+          "status": "$.status",
+          "country": "$.country",
+          "countryCode": "$.countryCode",
+          "region": "$.region",
+          "regionName": "$.regionName",
+          "city": "$.city",
+          "zip": "$.zip",
+          "lat": "$.lat",
+          "lon": "$.lon",
+          "timezone": "$.timezone",
+          "isp": "$.isp",
+          "org": "$.org",
+          "as": "$.as",
+          "query": "$.query"
+        }
+      },
+      {
+        "class": "HttpJsonApiSource",
+        "name": "ipgeolocation",
+        "urlBase": "https://api.ipgeolocation.io/ipgeo",
+        "keyQueryParam": "ip",
+        "additionalQueryParams": {
+          "apiKey": "${IPGEOLOCATION_APIKEY}"
+        },
+        "resultPath": {
+          "status": "$.status",
+          "country": "$.country_name",
+          "countryCode": "$.country_code3",
+          "region": "$.district",
+          "city": "$.city",
+          "zip": "$.zipcode",
+          "lat": "$.latitude",
+          "lon": "$.longitude",
+          "timezone": "$.time_zone.name",
+          "isp": "$.isp",
+          "org": "$.organization",
+          "as": "$.asn"
+        }
+      },
+      {
+        "class": "HttpJsonApiSource",
+        "name": "locationsvc",
+        "method": "get",
+        "urlBase": "https://locsvc.azurewebsites.net",
+        "keyUrlTemplate": "/locations/$",
+        "resultPath": {
+          "id": "$.id",
+          "name": "$.name"
+        }
+      },
+      {
+        "class": "mssql",
+        "name": "join_test_mssql",
+        "connectionString": "${CONN_STR}",
+        "sqlTemplate": "select name, age from join_test where group_id = @P1",
+        "availableFields": [
+          "name",
+          "age"
+        ]
+      },
+      {
+        "class": "sqlite",
+        "name": "join_test",
+        "dbPath": "test-data/test.db",
+        "sqlTemplate": "select name, age from join_test where group_id = :key",
+        "availableFields": [
+          "name",
+          "age"
+        ]
+      },
+      {
+        "class": "cosmosdb",
+        "name": "cosmos1",
+        "account": "${COSMOS_ACCOUNT}",
+        "apiKey": "${COSMOS_API_KEY}",
+        "database": "${COSMOS_DATABASE}",
+        "collection": "abcde"
+      },
+      {
+        "class": "cosmosdb",
+        "name": "cosmos2",
+        "account": "${COSMOS_ACCOUNT}",
+        "apiKey": "${COSMOS_API_KEY}",
+        "database": "${COSMOS_DATABASE}",
+        "collection": "table1",
+        "query": "SELECT * FROM table1 c WHERE c.key0 = @key"
+      }
+    ]
+  }

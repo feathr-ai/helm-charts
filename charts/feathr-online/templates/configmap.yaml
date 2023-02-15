@@ -4,8 +4,10 @@ metadata:
   name: feathr-online-config
   namespace: default
 data:
+  lookup.json: {{ .Files.Get "conf/lookup.json" | toPrettyJson }}
+  pipeline.conf: {{ .Files.Get (printf "conf/pipeline.conf") | indent 8 }}
   # Configuration variables of feathr-online.conf
-  pipeline.conf: |
+  feathr-online.conf: |
     FEATHRCI_HOST={{ .Values.feathrCiHost }}
     FEATHRCI_PASS={{ .Values.feathrCiPass }}
     FEATHRCI_TABLE={{ .Values.feathrCiTable }}
