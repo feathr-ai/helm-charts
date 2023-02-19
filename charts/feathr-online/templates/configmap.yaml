@@ -4,5 +4,7 @@ metadata:
   name: feathr-online-config
   namespace: default
 data:
+  pipeline.conf: {{ .Files.Get ( required ".Values.pipelineConf is required." .Values.pipelineConf) | indent 4 }}
+  {{ if .Values.lookup }}
   lookup.json: {{ .Files.Get "conf/lookup.json" | toPrettyJson }}
-  pipeline.conf: {{ .Files.Get "conf/pipeline.conf" | indent 4 }}
+  {{ end }}

@@ -4,15 +4,6 @@
 
 replicaCount: 1
 
-feathrCiHost: ""
-feathrCiPass: ""
-feathrCiTable: ""
-ipGeolocationApiKey: ""
-connStr: ""
-cosmosAccount: ""
-cosmosApiKey: ""
-cosmosDatabase: ""
-
 image:
   repository: windoze/feathrpiper
   pullPolicy: Always
@@ -58,3 +49,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+pipelineConf: conf/pipeline.conf
+lookup: conf/lookup.json
