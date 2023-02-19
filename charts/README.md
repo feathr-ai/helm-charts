@@ -8,25 +8,7 @@ A Helm chart for Feathr Online Server
 
 ### Add or Edit Configuration Variables of `feathr-online.conf`
 
-All of the configuration variables of Feathr are placed in `/confg` as `feathr-online.conf` and mounted to Feathr's deployment pod.
-To add or edit the variables in `feathr-online.conf`, go to [`configmap.yaml`](feathr-online/templates/configmap.yaml) 
-and add or edit under `feathr-online` of `data` as below:
-For testing purposes, we recommend you to leave the default keys as it is.
-```yaml
-data:
-  # Configuration variables of feathr-online.conf
-  feathr-online.conf: |
-    FEATHRCI_HOST={{ .Values.feathrCiHost }}
-    FEATHRCI_PASS={{ .Values.feathrCiPass }}
-    FEATHRCI_TABLE={{ .Values.feathrCiTable }}
-    IPGEOLOCATION_APIKEY={{ .Values.ipGeolocationApiKey }}
-    CONN_STR={{ .Values.connStr }}
-    COSMOS_ACCOUNT={{ .Values.cosmosAccount }}
-    COSMOS_API_KEY={{ .Values.cosmosApiKey }}
-    COSMOS_DATABASE={{ .Values.cosmosDatabase }}
-    ## e.g.
-    NEW_KEY={{ .Values.newValue }}
-```
+All of the configuration variables of Feathr are placed in `/conf` and mounted to Feathr's deployment pod, namely `pipeline.conf` and `lookup.json`.
 
 ### Installing configuration variables
 

@@ -6,13 +6,3 @@ metadata:
 data:
   lookup.json: {{ .Files.Get "conf/lookup.json" | toPrettyJson }}
   pipeline.conf: {{ .Files.Get "conf/pipeline.conf" | indent 4 }}
-  # Configuration variables of feathr-online.conf
-  feathr-online.conf: |
-    FEATHRCI_HOST={{ .Values.feathrCiHost }}
-    FEATHRCI_PASS={{ .Values.feathrCiPass }}
-    FEATHRCI_TABLE={{ .Values.feathrCiTable }}
-    IPGEOLOCATION_APIKEY={{ .Values.ipGeolocationApiKey }}
-    CONN_STR={{ .Values.connStr }}
-    COSMOS_ACCOUNT={{ .Values.cosmosAccount }}
-    COSMOS_API_KEY={{ .Values.cosmosApiKey }}
-    COSMOS_DATABASE={{ .Values.cosmosDatabase }}

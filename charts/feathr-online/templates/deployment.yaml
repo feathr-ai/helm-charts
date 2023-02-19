@@ -61,8 +61,6 @@ spec:
             path: lookup.json
           - key: pipeline.conf
             path: pipeline.conf
-          - key: feathr-online.conf
-            path: feathr-online.conf
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
