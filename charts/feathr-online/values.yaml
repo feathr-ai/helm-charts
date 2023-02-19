@@ -49,6 +49,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-pipelineConf: conf/pipeline.conf
-lookup: conf/lookup.json
