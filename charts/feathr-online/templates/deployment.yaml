@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "feathr-online.fullname" . }}
-  namespace: default
+  namespace: {{ .Release.Name }}
   labels:
     {{- include "feathr-online.labels" . | nindent 4 }}
 spec:
