@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: feathr-online-config
+  namespace: {{ .Release.Name }}
+data:
+  pipeline.conf: {{ .Files.Get ( required ".Values.pipelineConf is required." .Values.pipelineConf) | indent 4 }}
+  {{ if .Values.lookup }}
+  lookup.json: {{ .Files.Get .Values.lookup | toPrettyJson }}
+  {{ end }}

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "feathr-online.fullname" . }}
+  namespace: {{ .Release.Name }}
   labels:
     {{- include "feathr-online.labels" . | nindent 4 }}
 spec:
@@ -44,6 +45,24 @@ spec:
               port: 8000
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config
+            mountPath: /conf
+            readOnly: true
+      volumes:
+      # You set volumes at the Pod level, then mount them into containers inside that Pod     
+      - name: config
+        configMap:
+          # Provide the name of the ConfigMap you want to mount.
+          name: feathr-online-config
+          # An array of keys from the ConfigMap to create as files
+          items:
+          - key: pipeline.conf
+            path: pipeline.conf
+          {{ if .Values.lookup }}
+          - key: lookup.json
+            path: lookup.json
+          {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

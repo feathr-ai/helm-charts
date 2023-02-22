@@ -4,6 +4,7 @@ metadata:
   name: {{ include "feathr-online.fullname" . }}
   labels:
     {{- include "feathr-online.labels" . | nindent 4 }}
+  namespace: {{ .Release.Name }}
 spec:
   type: {{ .Values.service.type }}
   ports:
