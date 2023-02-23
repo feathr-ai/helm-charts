@@ -50,6 +50,7 @@ spec:
             mountPath: /conf
             readOnly: true
           env:
+            # Secret of feathr
             - name: FEATHRCI_HOST
               valueFrom:
                 secretKeyRef:
