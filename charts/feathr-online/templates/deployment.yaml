@@ -49,6 +49,48 @@ spec:
           - name: config
             mountPath: /conf
             readOnly: true
+          env:
+            # Secret of feathr
+            - name: FEATHRCI_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: FEATHRCI_HOST
+            - name: FEATHRCI_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: FEATHRCI_PASS
+            - name: FEATHRCI_TABLE
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: FEATHRCI_TABLE
+            - name: IPGEOLOCATION_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: IPGEOLOCATION_APIKEY
+            - name: CONN_STR
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: CONN_STR
+            - name: COSMOS_ACCOUNT
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: COSMOS_ACCOUNT
+            - name: COSMOS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: COSMOS_API_KEY
+            - name: COSMOS_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: feathr-online-secret
+                  key: COSMOS_DATABASE
       volumes:
       # You set volumes at the Pod level, then mount them into containers inside that Pod     
       - name: config
