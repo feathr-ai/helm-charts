@@ -9,15 +9,14 @@ A Helm chart for Feathr Online Server
 ### Configuring and mounting `pipeline.conf` and `lookup.json` to Feathr on Kubernetes
 
 `pipeline.conf` and `lookup.json` are placed in `/conf` and mounted to Feathr's deployment pod.
-You can edit `pipeline.conf` and `lookup.json`, then deploy the config files to Feathr on Kubernetes in step 1. The deployment will be instantiated in the `<Release Name>` namespace. Please note that both `pipeline.conf` and `lookup.json` have to be in `feathr_online`.  Use `--dry-run` to validate installation yaml. 
+You can edit `pipeline.conf` and `lookup.json`, then deploy the config files to Feathr on Kubernetes in step 1. The deployment will be instantiated in the `<Release Name>` namespace. Please note that both `pipeline.conf` and `lookup.json` will [have to be encoded in Base64](https://github.com/helm/helm/issues/4026#issuecomment-1256609433).  Use `--dry-run` to validate installation yaml. 
 
-1. Add the path of `pipeline.conf` and `lookup.json` to [`values.yaml`](/feathr-online/values.yaml). Run `helm install <Release Name> ./feathr-online`. 
+1. Add the path of `pipeline.conf` and `lookup.json` and run the following command.
 ```
-pipelineConf=conf/pipeline.conf
-lookup=conf/lookup.json
+helm install chang ./feathr-online \ 
+    --set pipelineConf=$(cat <absolute or relative path>/pipeline.conf | base64) \
+    --set lookup=$(cat <absolute or relative path>/lookup.json | base64)
 ```
-
-Alternatively, you can run `helm install <Release Name> ./feathr-online --set pipelineConf=conf/pipeline.conf --set lookup=conf/lookup.json` in `helm-charts`. The deployment should be instantiated in the `<Release Name>` namespace.
 
 2. Check if the ConfigMap is present.
 ```sh
