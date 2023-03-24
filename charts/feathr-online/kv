@@ -1,0 +1,49 @@
+
+1. Create an Azure Key Vault in Public or Private Subnet. *Should create it in another subnet that agent-pool is not in
+az keyvault create -n feathr-aks-key-vault -g feathr-aks -l southeastasia
+
+2. 
+az keyvault secret set --vault-name feathr-aks-key-vault -n CONN-STR --value CONN_STR
+Parameter 'secret_name' must conform to the following pattern: '^[0-9a-zA-Z-]+$'.
+
+3. 
+az aks show -g feathr-aks -n feathr-aks --query addonProfiles.azureKeyvaultSecretsProvider.identity.clientId -o tsv
+5a98b518-43a7-41de-817f-bbd118e965f9
+
+
+az identity create -g feathr-aks -n feathr-aks-identity
+az vmss identity assign -g MC_feathr-aks_feathr-aks_southeastasia -n aks-agentpool-32719613-vmss --identities /subscriptions/78970632-6536-4ba2-a247-d80222ec6a83/resourcegroups/feathr-aks/providers/Microsoft.ManagedIdentity/userAssignedIdentities/feathr-aks-identity
+
+4. 
+
+# set policy to access keys in your key vault
+az keyvault set-policy -n feathr-aks-key-vault --key-permissions get --spn 080d6eaa-af6f-4b76-b520-04c8c5dad49e
+# set policy to access secrets in your key vault
+az keyvault set-policy -n feathr-aks-key-vault --secret-permissions get --spn 080d6eaa-af6f-4b76-b520-04c8c5dad49e
+# set policy to access certs in your key vault
+az keyvault set-policy -n feathr-aks-key-vault --certificate-permissions get --spn 080d6eaa-af6f-4b76-b520-04c8c5dad49e
+
+# This is a SecretProviderClass example using user-assigned identity to access your key vault
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: azure-kvname-user-msi
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "true"          # Set to true for using managed identity
+    userAssignedIdentityID: <client-id>   # Set the clientID of the user-assigned managed identity to use
+    keyvaultName: <key-vault-name>        # Set to the name of your key vault
+    cloudName: ""                         # [OPTIONAL for Azure] if not provided, the Azure environment defaults to AzurePublicCloud
+    objects:  |
+      array:
+        - |
+          objectName: secret1
+          objectType: secret              # object types: secret, key, or cert
+          objectVersion: ""               # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: key1
+          objectType: key
+          objectVersion: ""
+    tenantId: <tenant-id>                 # The tenant ID of the key vault
