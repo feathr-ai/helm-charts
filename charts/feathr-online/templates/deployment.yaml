@@ -101,10 +101,8 @@ spec:
           items:
           - key: pipeline.conf
             path: pipeline.conf
-          {{ if .Values.lookup }}
           - key: lookup.json
             path: lookup.json
-          {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
