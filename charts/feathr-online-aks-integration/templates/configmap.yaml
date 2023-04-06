@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: feathr-online-config
+  namespace: {{ .Release.Name }}
+data:
+  # pipeline.conf and lookup.json needs to be encoded with Base64
+  pipeline.conf: |
+    {{ range ( required ".Values.pipelineConf is required." .Values.pipelineConf | b64dec) | toStrings }}
+    {{ . | nindent 8 }}
+  {{ end }}
+
+  {{ if .Values.lookup }}
+  lookup.json: | 
+    {{ range ( .Values.lookup | b64dec) | toStrings }}
+    {{ . | nindent 8 }}
+    {{ end }}
+  {{ end }}
+  
