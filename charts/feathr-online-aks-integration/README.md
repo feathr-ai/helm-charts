@@ -1,4 +1,4 @@
-# feathr-online
+# feathr-online-aks-integration
 
 ![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
@@ -6,12 +6,22 @@ A Helm chart for Feathr Online Server
 
 ## ConfigMap with Helm charts
 
+### Syncing Azure Key Vault's secrets to Feathr
+
+To integrate the secrets in Azure Key Vault into Azure Kubernetes Cluster, please refer to [Use the Azure Key Vault Provider for Secrets Store CSI Driver in an AKS cluster](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver). Once an existing AKS cluster with Azure Key Vault Provider for Secrets Store CSI Driver capability has been enabled, please set the environment variables in Azure Key Vault. Only user-assigned managed identity example is given [here](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#access-with-a-user-assigned-managed-identity) in the charts. For workload identity, please refer to [Workload Identity](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#access-with-an-azure-ad-workload-identity-preview) and edit the `deployment.yaml`.
+
 ### Configuring and mounting `pipeline.conf` and `lookup.json` to Feathr on Kubernetes
 
 `pipeline.conf` and `lookup.json` are placed in `/conf` and mounted to Feathr's deployment pod.
 You can edit `pipeline.conf` and `lookup.json`, then deploy the config files to Feathr on Kubernetes in step 1. The deployment will be instantiated in the `<Release Name>` namespace. Please note that both `pipeline.conf` and `lookup.json` have to be in `feathr_online`.  Use `--dry-run` to validate installation yaml. 
 
-1. Add the path of `pipeline.conf` and `lookup.json` to [`values.yaml`](/feathr-online/values.yaml). Run `helm install <Release Name> ./feathr-online`. 
+1. Add the path of `pipeline.conf` and `lookup.json` to [`values.yaml`](/feathr-online/values.yaml). Run 
+```sh
+helm install <Release Name> ./feathr-online-aks-integration \
+    --set pipelineConf=$(cat <absolute path>/pipeline.conf | base64) \
+    --set lookup=$(cat <absolute path>/lookup.json | base64) \
+    --set userAssignedIdentityID=<User Assigned Identity ID> \
+    --set tenantId=<Tenant ID>
 ```
 pipelineConf=conf/pipeline.conf
 lookup=conf/lookup.json
