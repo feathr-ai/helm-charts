@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "feathr-online.fullname" . }}
+  labels:
+    {{- include "feathr-online.labels" . | nindent 4 }}
+  namespace: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "feathr-online.selectorLabels" . | nindent 4 }}
