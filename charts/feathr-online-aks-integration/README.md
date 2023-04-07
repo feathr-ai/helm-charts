@@ -10,7 +10,6 @@ A Helm chart for Feathr Online Server
 
 To integrate the secrets in Azure Key Vault into Azure Kubernetes Cluster, please refer to [Use the Azure Key Vault Provider for Secrets Store CSI Driver in an AKS cluster](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver). Once an existing AKS cluster with Azure Key Vault Provider for Secrets Store CSI Driver capability has been enabled, please set the environment variables in Azure Key Vault. Only user-assigned managed identity example is given [here](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#access-with-a-user-assigned-managed-identity) in the charts. For workload identity, please refer to [Workload Identity](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#access-with-an-azure-ad-workload-identity-preview) and edit the `deployment.yaml`.
 
-
 | Azure Key Vault | Environment Variables in Feathr Online |
 |-----|------|
 | FEATHRCI-HOST | FEATHRCI_HOST |

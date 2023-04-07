@@ -11,6 +11,16 @@ A Helm chart for Feathr Online Server
 `pipeline.conf` and `lookup.json` are placed in `/conf` and mounted to Feathr's deployment pod.
 You can edit `pipeline.conf` and `lookup.json`, then deploy the config files to Feathr on Kubernetes in step 1. The deployment will be instantiated in the `<Release Name>` namespace. Please note that both `pipeline.conf` and `lookup.json` will [have to be encoded in Base64](https://github.com/helm/helm/issues/4026#issuecomment-1256609433).  Use `--dry-run` to validate installation yaml. 
 
+The following environment variables need to be set in `secrets.yaml`.
+- FEATHRCI_HOST
+- FEATHRCI_PASS
+- FEATHRCI_TABLE
+- IPGEOLOCATION_APIKEY
+- CONN_STR
+- COSMOS_ACCOUNT
+- COSMOS_API_KEY
+- COSMOS_DATABASE
+
 1. Add the path of `pipeline.conf` and `lookup.json` and run the following command.
 ```
 helm install chang ./feathr-online \ 
