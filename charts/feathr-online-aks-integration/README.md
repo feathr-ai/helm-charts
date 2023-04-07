@@ -10,6 +10,18 @@ A Helm chart for Feathr Online Server
 
 To integrate the secrets in Azure Key Vault into Azure Kubernetes Cluster, please refer to [Use the Azure Key Vault Provider for Secrets Store CSI Driver in an AKS cluster](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver). Once an existing AKS cluster with Azure Key Vault Provider for Secrets Store CSI Driver capability has been enabled, please set the environment variables in Azure Key Vault. Only user-assigned managed identity example is given [here](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#access-with-a-user-assigned-managed-identity) in the charts. For workload identity, please refer to [Workload Identity](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#access-with-an-azure-ad-workload-identity-preview) and edit the `deployment.yaml`.
 
+| Azure Key Vault | Environment Variables in Feathr Online |
+|-----|------|-------------|
+| FEATHRCI-HOST | FEATHRCI_HOST |
+| FEATHRCI-PASS | FEATHRCI_PASS |
+| FEATHRCI-TABLE | FEATHRCI_TABLE |
+| IPGEOLOCATION-APIKEY | IPGEOLOCATION_APIKEY |
+| CONN-STR | CONN_STR |
+| COSMOS-ACCOUNT | COSMOS_ACCOUNT|
+| COSMOS-API-KEY | COSMOS_API_KEY |
+| COSMOS-DATABASE | COSMOS_DATABASE|
+----------------------------------------------
+
 ### Configuring and mounting `pipeline.conf` and `lookup.json` to Feathr on Kubernetes
 
 `pipeline.conf` and `lookup.json` are placed in `/conf` and mounted to Feathr's deployment pod.
@@ -22,9 +34,6 @@ helm install <Release Name> ./feathr-online-aks-integration \
     --set lookup=$(cat <absolute path>/lookup.json | base64) \
     --set userAssignedIdentityID=<User Assigned Identity ID> \
     --set tenantId=<Tenant ID>
-```
-pipelineConf=conf/pipeline.conf
-lookup=conf/lookup.json
 ```
 
 Alternatively, you can run `helm install <Release Name> ./feathr-online --set pipelineConf=conf/pipeline.conf --set lookup=conf/lookup.json` in `helm-charts`. The deployment should be instantiated in the `<Release Name>` namespace.
